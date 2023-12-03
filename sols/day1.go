@@ -5,9 +5,10 @@ import (
 	"os"
 	"unicode"
 	"regexp"
+	"fmt"
 )
 
-func part1() int {
+func part1Day1() int {
 	res := 0
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
@@ -36,7 +37,7 @@ func Reverse(s string) (result string) {
   return
 }
 
-func part2() int {
+func part2Day1() int {
 	digitsMap := map[string]int{
 		"one": 1,
 		"two": 2,
@@ -66,6 +67,7 @@ func part2() int {
 
 		forward_matches := forward_re.FindAllString(line, -1)
 		back_matches := back_re.FindAllString(Reverse(line), -1)
+		fmt.Printf("%d %d\n", digitsMap[forward_matches[0]], digitsMap[Reverse(back_matches[0])])
 		res += (digitsMap[forward_matches[0]]*10 + digitsMap[Reverse(back_matches[0])])
 	}
 	return res
@@ -73,8 +75,8 @@ func part2() int {
 
 func Day1(part string) int {
 	if part == "1" {
-		return part1()
+		return part1Day1()
 	} else {
-		return part2()
+		return part2Day1()
 	}
 }
