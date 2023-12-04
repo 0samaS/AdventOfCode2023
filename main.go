@@ -9,5 +9,5 @@ import(
 func main() {
 	part := os.Args[1]
 	yellow := color.New(color.FgYellow)
-	yellow.Printf("Solution for part %s is: %d\n", part, sols.Day2(part))
+	yellow.Printf("Solution for part %s is: %d\n", part, sols.Day3(part))
 }
