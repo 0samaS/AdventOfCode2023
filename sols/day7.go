@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"os"
 	"strings"
-	// "fmt"
 	"strconv"
 	"sort"
 )
@@ -62,13 +61,17 @@ func getHandTypeJoker(hand string) HandType {
 	for _, c := range hand {
 		card_count_map[rune(c)] += 1
 	}
-	one_pair   := 0
-	three_kind := 0 
-	four_kind  := 0
-	five_kind  := 0
+	one_pair   	:= 0
+	three_kind 	:= 0 
+	four_kind  	:= 0
+	five_kind  	:= 0
+	joker_count := 0
 
-	for _, count := range card_count_map {
-		if count == 2 {
+	// don't count joker in normal counts
+	for card, count := range card_count_map {
+		if rune(card) == 'J' {
+			joker_count += count
+		} else if count == 2 {
 			one_pair++
 		} else if count == 3 {
 			three_kind++;
@@ -78,20 +81,33 @@ func getHandTypeJoker(hand string) HandType {
 			five_kind++;
 		}
 	}
-	if five_kind == 1 {
+	if  (five_kind == 1) || 
+			(joker_count == 5) || 
+			(joker_count == 4) || // no matter what the last card is we can match it 
+			(four_kind == 1 && joker_count == 1) ||
+			(three_kind == 1 && joker_count == 2) || 
+			(one_pair == 1 && joker_count == 3){
 		return FiveKind
-	} else if four_kind == 1 {
+	} else if (four_kind == 1) || 
+						(one_pair == 0 && joker_count == 3) || // we can match one of the cards left over
+						(three_kind == 1 && joker_count == 1) || 
+						(one_pair == 1 && joker_count == 2) {
 		return FourKind
-	} else if three_kind == 1 && one_pair == 1 {
+	} else if (three_kind == 1 && one_pair == 1) || 
+						(one_pair == 2 && joker_count == 1) ||
+						(three_kind == 1 && joker_count == 2) ||
+						(one_pair == 1 && joker_count == 3) {
 		return FullHouse
-	} else if three_kind == 1 {
+	} else if (three_kind == 1) ||
+						(one_pair == 1 && joker_count == 1) || 
+						(one_pair == 0 && joker_count == 2){
 		return ThreeKind
-	} else if one_pair == 2 {
+	} else if (one_pair == 2) {
 		return TwoPair
-	} else if one_pair == 1 {
+	} else if (one_pair == 1) ||
+						(one_pair == 0 && joker_count == 1) {
 		return OnePair
 	}
-
 	return HighCard
 }
 
@@ -137,7 +153,6 @@ func part1Day7() int {
 		line_items := strings.Fields(scanner.Text())
 		hand_bid_map[line_items[0]], _ = strconv.Atoi(line_items[1])
 		hand_vector = append(hand_vector, line_items[0])
-		// fmt.Printf("%s, %s\n", line_items[0], line_items[1])
 	}
 	card_ranking := map[rune]int{
 		'2': 2,
@@ -157,7 +172,6 @@ func part1Day7() int {
 	sort.Sort(HandComp{hand_vector, card_ranking, getHandType})
 
 	for rank, hand := range hand_vector {
-		// fmt.Printf("%s\n", hand)
 		res += ((rank+1) * hand_bid_map[hand])
 	}
 	return res
@@ -173,7 +187,6 @@ func part2Day7() int {
 		line_items := strings.Fields(scanner.Text())
 		hand_bid_map[line_items[0]], _ = strconv.Atoi(line_items[1])
 		hand_vector = append(hand_vector, line_items[0])
-		// fmt.Printf("%s, %s\n", line_items[0], line_items[1])
 	}
 	card_ranking := map[rune]int{
 		'J': 0,
@@ -193,10 +206,8 @@ func part2Day7() int {
 	sort.Sort(HandComp{hand_vector, card_ranking, getHandTypeJoker})
 
 	for rank, hand := range hand_vector {
-		// fmt.Printf("%s\n", hand)
 		res += ((rank+1) * hand_bid_map[hand])
 	}
-
 	return res
 }
 
