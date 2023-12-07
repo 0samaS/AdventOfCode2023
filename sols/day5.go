@@ -125,7 +125,7 @@ func part2Day5() int {
 }
 
 func Day5(part string) int {
-	if part == "1" {
+	if part == "part1" {
 		return part1Day5()
 	} else {
 		return part2Day5()

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 <day_number> <test/real>"
+    exit 1
+fi
+
+input_file=""
+
+day_num=$1
+
+if [ "$2" == "test" ]; then
+  echo "Running on test input"
+  input_file="inputs/day${day_num}/test.txt"
+else
+  echo "Running on real input"
+  input_file="inputs/day${day_num}/real.txt"
+fi
+
+go run main.go day${day_num} part1 < "$input_file"
+go run main.go day${day_num} part2 < "$input_file"

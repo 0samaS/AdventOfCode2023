@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"os"
 	"strings"
-	"fmt"
+	// "fmt"
 	"strconv"
 	"math"
 )
@@ -60,7 +60,6 @@ func part2Day4() int {
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
 		line := scanner.Text()
-		fmt.Printf("%s\n", line)
 		split_card := strings.Split(line, ":")
 		card_num, _ := strconv.Atoi(strings.TrimSpace(split_card[0][4:len(split_card[0])]));
 		split_card = strings.Split(split_card[1], "|")
@@ -84,7 +83,7 @@ func part2Day4() int {
 }
 
 func Day4(part string) int {
-	if part == "1" {
+	if part == "part1" {
 		return part1Day4()
 	} else {
 		return part2Day4()

@@ -5,7 +5,7 @@ import (
 	"os"
 	"unicode"
 	"regexp"
-	"fmt"
+	// "fmt"
 )
 
 func part1Day1() int {
@@ -67,14 +67,13 @@ func part2Day1() int {
 
 		forward_matches := forward_re.FindAllString(line, -1)
 		back_matches := back_re.FindAllString(Reverse(line), -1)
-		fmt.Printf("%d %d\n", digitsMap[forward_matches[0]], digitsMap[Reverse(back_matches[0])])
 		res += (digitsMap[forward_matches[0]]*10 + digitsMap[Reverse(back_matches[0])])
 	}
 	return res
 }
 
 func Day1(part string) int {
-	if part == "1" {
+	if part == "part1" {
 		return part1Day1()
 	} else {
 		return part2Day1()

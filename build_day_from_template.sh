@@ -17,11 +17,11 @@ fi
 num=$1
 
 mkdir -p inputs/day${num}/
-touch inputs/day${num}/test1.txt
-touch inputs/day${num}/test2.txt
+touch inputs/day${num}/test.txt
 touch inputs/day${num}/real.txt
 
 output_file="sols/day${num}.go"
+rm output_file
 
 # Read the input file line by line, replace "X" with variable, and write to temporary file
 while IFS= read -r line; do
