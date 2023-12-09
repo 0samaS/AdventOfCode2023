@@ -63,6 +63,8 @@ func part1Day8() int {
 
 func part2Day8() int {
 	node_map := make(map[string]Node)
+	var current []string
+
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
 	instructions := scanner.Text()
@@ -78,11 +80,8 @@ func part2Day8() int {
 
 		parent := nodes[0]
 		node_map[parent] = Node{left_child, right_child}
-	}
-	var current []string
-	for k, _ := range node_map {
-		if rune(k[2]) == rune('A') {
-			current = append(current, k)
+		if rune(parent[2]) == rune('A') {
+			current = append(current, parent)
 		}
 	}
 
