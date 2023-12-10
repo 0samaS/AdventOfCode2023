@@ -29,7 +29,7 @@ func main() {
 	} else if day == "day9" {
 		yellow.Printf("Solution for %s %s is: %d\n", day, part, sols.Day9(part))
 	} else if day == "day10" {
-		// yellow.Printf("Solution for %s %s is: %d\n", day, part, sols.Day10(part))
+		yellow.Printf("Solution for %s %s is: %d\n", day, part, sols.Day10(part))
 	} else if day == "day11" {
 		// yellow.Printf("Solution for %s %s is: %d\n", day, part, sols.Day11(part))
 	} else if day == "day12" {
