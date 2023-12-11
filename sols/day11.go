@@ -4,9 +4,6 @@ package sols
 import (
 	"bufio"
 	"os"
-	// "fmt"
-	// "strings"
-	// "strconv"
 )
 
 type Galaxy struct {
@@ -58,7 +55,7 @@ func findExpandedManhattanDist(x Galaxy, y Galaxy, row_info[]int, col_info[]int,
 	return row_dist + col_dist
 }
 
-func part1Day11() int {
+func parseAndCalculate(len_expansion int) int{
 	res := 0
 	var universe []string
 	scanner := bufio.NewScanner(os.Stdin)
@@ -90,48 +87,18 @@ func part1Day11() int {
 	}
 	for i:=0; i<len(galaxies); i++ {
 		for j:=i+1; j<len(galaxies); j++ {
-			res += findExpandedManhattanDist(galaxies[i], galaxies[j], row_info, col_info, 2)
+			res += findExpandedManhattanDist(galaxies[i], galaxies[j], row_info, col_info, len_expansion)
 		}
 	}
 	return res
 }
 
+func part1Day11() int {
+	return parseAndCalculate(2)
+}
+
 func part2Day11() int {
-	res := 0
-	var universe []string
-	scanner := bufio.NewScanner(os.Stdin)
-	
-	for scanner.Scan() {
-		line := scanner.Text()
-		universe = append(universe, line)
-	}
-	col_info := make([]int, len(universe[0]))
-	row_info := make([]int, len(universe))
-	for i:=0; i<len(universe); i++ {
-		for j:=0; j<len(universe[i]); j++ {
-			if universe[i][j] == '#' {
-				col_info[j] += 1
-				row_info[i] += 1
-			} else {
-				col_info[j] += 0
-				row_info[i] += 0
-			}
-		}
-	}
-	var galaxies []Galaxy
-	for row_num, line := range universe {
-		for col_num, char := range line {
-			if char == '#' {
-				galaxies = append(galaxies, Galaxy{row_num, col_num})
-			}
-		}
-	}
-	for i:=0; i<len(galaxies); i++ {
-		for j:=i+1; j<len(galaxies); j++ {
-			res += findExpandedManhattanDist(galaxies[i], galaxies[j], row_info, col_info, 1000000)
-		}
-	}
-	return res
+	return parseAndCalculate(1000000)
 }
 
 func Day11(part string) int {
