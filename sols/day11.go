@@ -9,26 +9,9 @@ import (
 	// "strconv"
 )
 
-// Abs returns the absolute value of x.
-func abs(x int) int {
-	if x < 0 {
-		return -x
-	}
-	return x
-}
-
 type Galaxy struct {
 	row int
 	col int
-}
-
-type GalaxyPair struct {
-	first int
-	second int
-}
-
-func findManhattanDist(x Galaxy, y Galaxy) int {
-	return abs(x.row - y.row) + abs(x.col - y.col)
 }
 
 func findExpandedManhattanDist(x Galaxy, y Galaxy, row_info[]int, col_info[]int, len_expansion int) int {
@@ -105,12 +88,9 @@ func part1Day11() int {
 			}
 		}
 	}
-	dist_map := make(map[GalaxyPair]int)
 	for i:=0; i<len(galaxies); i++ {
 		for j:=i+1; j<len(galaxies); j++ {
-			galaxy_pair := GalaxyPair{i, j}
-			dist_map[galaxy_pair] = findExpandedManhattanDist(galaxies[i], galaxies[j], row_info, col_info, 2)
-			res += dist_map[GalaxyPair{i, j}]
+			res += findExpandedManhattanDist(galaxies[i], galaxies[j], row_info, col_info, 2)
 		}
 	}
 	return res
@@ -146,12 +126,9 @@ func part2Day11() int {
 			}
 		}
 	}
-	dist_map := make(map[GalaxyPair]int)
 	for i:=0; i<len(galaxies); i++ {
 		for j:=i+1; j<len(galaxies); j++ {
-			galaxy_pair := GalaxyPair{i, j}
-			dist_map[galaxy_pair] = findExpandedManhattanDist(galaxies[i], galaxies[j], row_info, col_info, 1000000)
-			res += dist_map[GalaxyPair{i, j}]
+			res += findExpandedManhattanDist(galaxies[i], galaxies[j], row_info, col_info, 1000000)
 		}
 	}
 	return res
